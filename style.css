@@ -1,0 +1,76 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Georgia', serif; /* Sesuaikan dengan font undangan */
+    overflow-x: hidden;
+}
+
+.parallax-container {
+    position: relative;
+    height: 100vh; /* Tinggi satu layar penuh */
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective: 1px; /* Penting untuk efek parallax murni CSS */
+}
+
+/* Pengaturan umum untuk setiap lapisan (layer) */
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    /* Ini akan di-override di script.js jika menggunakan GSAP, 
+       tapi ini dasar jika hanya pakai CSS */
+}
+
+.layer img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+/* Mengatur Z-Index agar urutannya benar (Belakang ke Depan) */
+.layer-bg { z-index: 1; transform: translateZ(-2px) scale(3); } /* Efek parallax CSS murni */
+.layer-mid { z-index: 2; transform: translateZ(-1px) scale(2); }
+.layer-front { z-index: 3; transform: translateZ(0); }
+
+/* Mengatur elemen yang bergerak seperti karakter di motor */
+.moving-element {
+    position: absolute;
+    bottom: 10%; /* Sesuaikan posisi di jalan */
+    left: 0;
+    width: 30%; /* Sesuaikan ukuran */
+    z-index: 4;
+}
+
+/* Pengaturan Konten Teks */
+.content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+    padding-top: 100vh; /* Mulai konten setelah tinggi layar pertama */
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.text-box {
+    background: rgba(255, 255, 255, 0.8); /* Latar belakang teks agak transparan */
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}

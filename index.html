@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Jefrey & Vivi</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Tambahkan library animasi seperti GSAP untuk kontrol lebih baik (opsional untuk tingkat lanjut) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+    <div class="parallax-container">
+        
+        <!-- Lapisan Paling Belakang (Langit dan Awan) - Bergerak paling lambat -->
+        <div class="layer layer-bg" id="sky">
+            <img src="assets/langit-awan.jpg" alt="Langit">
+        </div>
+
+        <!-- Lapisan Tengah (Bangunan) -->
+        <div class="layer layer-mid" id="buildings">
+            <img src="assets/bangunan.png" alt="Deretan Toko">
+        </div>
+
+        <!-- Lapisan Depan (Jalan, Mobil, dan Karakter) - Bergerak lebih cepat -->
+        <div class="layer layer-front" id="street">
+            <!-- Elemen ini bisa digerakkan secara horizontal dengan CSS/JS -->
+            <img src="assets/jalan.png" alt="Jalanan">
+            <img src="assets/karakter-motor.png" class="moving-element" id="couple" alt="Jefrey & Vivi">
+        </div>
+
+        <!-- Konten Teks yang Muncul Saat Di-scroll -->
+        <div class="content">
+            <section class="section-title">
+                <h1>The Wedding of</h1>
+                <h2>Jefrey & Vivi</h2>
+            </section>
+            
+            <section class="section-details">
+                <div class="text-box">
+                    <h3>Akad</h3>
+                    <p>Minggu, 6 September 2026<br>09:00 AM</p>
+                    <p>Mahogany Grand Ballroom Level 1<br>Medan</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
