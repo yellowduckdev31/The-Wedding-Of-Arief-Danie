@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Undangan Akad Nikah - Arief & Wardani</title>
+    
+    <!-- Meta tags for Social Media / WhatsApp Share Preview -->
+    <meta name="description" content="Undangan Akad Nikah Arief Putra Utama & Wardani - Kamis, 26 November 2026 di Surabaya.">
+    <meta property="og:title" content="Undangan Akad Nikah Arief & Wardani">
+    <meta property="og:description" content="Jelajahi undangan pernikahan interaktif bertema game RPG - Akad Nikah 26 November 2026.">
+    <meta property="og:image" content="assets/background.jpg">
+    
+    <!-- Fonts & Stylesheet -->
+    <link rel="stylesheet" href="style.css?v=30">
+</head>
+<body>
+
+    <!-- MAIN GAME VIEWPORT -->
+    <div id="game-container">
+        <!-- 2D High-Resolution Canvas -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- HUD (HEADS-UP DISPLAY OVERLAY) -->
+        <div id="hud-overlay">
+            <!-- Top HUD Bar -->
+            <div class="hud-top-bar">
+                <div class="location-pill">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <div class="location-text">
+                        <span class="label">Lokasi Saat Ini</span>
+                        <span class="place">Area Akad Nikah</span>
+                    </div>
+                </div>
+
+                <div class="hud-actions">
+                    <!-- Music Toggle Button -->
+                    <button id="btn-music-toggle" class="hud-btn" title="Nyalakan/Matikan Musik" aria-label="Audio">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                        </svg>
+                    </button>
+                    <!-- Info Menu Button -->
+                    <button id="btn-info-menu" class="hud-btn" title="Detail Acara" aria-label="Info">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Touch Controls (Optimized for Mobile HP) -->
+            <div class="hud-controls">
+                <!-- Virtual D-Pad -->
+                <div class="dpad-container" id="virtual-dpad">
+                    <button id="dpad-up" class="dpad-btn dpad-up" aria-label="Atas">
+                        <svg viewBox="0 0 24 24"><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/></svg>
+                    </button>
+                    <button id="dpad-down" class="dpad-btn dpad-down" aria-label="Bawah">
+                        <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                    </button>
+                    <button id="dpad-left" class="dpad-btn dpad-left" aria-label="Kiri">
+                        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                    </button>
+                    <button id="dpad-right" class="dpad-btn dpad-right" aria-label="Kanan">
+                        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                    </button>
+                    <div class="dpad-center-hub"></div>
+                </div>
+
+                <!-- Action / Interaction Button ("Sapa") -->
+                <div class="action-btn-container">
+                    <div id="interaction-hint" class="interaction-hint-tag">Sapa Seseorang</div>
+                    <button id="btn-sapa" class="sapa-btn" aria-label="Sapa">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                        </svg>
+                        <span>Sapa</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOAST NOTIFICATION -->
+        <div id="toast-msg"></div>
+
+        <!-- ===================================================
+             LOBBY / CHARACTER SELECTION SCREEN
+        =================================================== -->
+        <div id="lobby-screen">
+            <div class="lobby-card">
+                <div class="lobby-header-deco">
+                    <span>❦</span>
+                    <h2 class="lobby-title">Pilih Karakter Anda</h2>
+                    <span>❧</span>
+                </div>
+                
+                <p class="lobby-event-sub">Akad Nikah Arief &amp; Wardani</p>
+
+                <!-- Guest Greeting Badge -->
+                <div class="guest-greeting-box">
+                    <span>Kepada Yth:</span>
+                    <strong id="lobby-guest-name">Tamu Undangan</strong>
+                    <button id="btn-edit-guest" class="edit-guest-btn" title="Ubah Nama">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Character Selection Grid -->
+                <div class="character-selection-grid">
+                    <!-- Male Character Card -->
+                    <div id="card-male" class="character-card male selected">
+                        <div class="avatar-circle-wrap">
+                            <img src="assets/avatar_male.png" alt="Tamu Pria">
+                        </div>
+                        <div class="character-pill-badge">Tamu Pria</div>
+                    </div>
+
+                    <!-- Female Character Card -->
+                    <div id="card-female" class="character-card female">
+                        <div class="avatar-circle-wrap">
+                            <img src="assets/avatar_female.png" alt="Tamu Wanita">
+                        </div>
+                        <div class="character-pill-badge">Tamu Wanita</div>
+                    </div>
+                </div>
+
+                <!-- Start Adventure Button -->
+                <button id="btn-start-game" class="btn-start-game">
+                    <span>Mulai Perjalanan</span>
+                    <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                </button>
+
+                <!-- Helper Hint -->
+                <p class="lobby-instruction">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    Gunakan tombol di layar untuk berjalan dan berinteraksi dengan orang-orang serta objek di sekitar untuk melihat informasi acara.
+                </p>
+            </div>
+        </div>
+
+        <!-- ===================================================
+             DIALOGUE MODAL (RPG STYLE)
+        =================================================== -->
+        <div id="dialogue-modal">
+            <div class="dialogue-content-wrap">
+                <div class="dialogue-avatar">
+                    <img id="dialogue-avatar-img" src="assets/avatar_male.png" alt="Avatar">
+                </div>
+                <div class="dialogue-body">
+                    <div class="dialogue-header">
+                        <div class="dialogue-title-badge">
+                            <span id="dialogue-speaker-name" class="dialogue-speaker-name">Nama Karakter</span>
+                            <span id="dialogue-speaker-role" class="dialogue-speaker-role">Peran</span>
+                        </div>
+                        <button id="btn-close-dialogue" class="btn-close-dialogue" title="Tutup">✕</button>
+                    </div>
+                    <div id="dialogue-text" class="dialogue-text">
+                        Halo! Selamat datang di acara akad nikah Arief dan Wardani.
+                    </div>
+                    <div id="dialogue-actions" class="dialogue-action-buttons">
+                        <!-- Dynamically filled with action buttons -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================================================
+             GUESTBOOK & RSVP MODAL
+        =================================================== -->
+        <div id="guestbook-modal" class="overlay-modal">
+            <div class="overlay-modal-box">
+                <div class="modal-head">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <h3>Buku Tamu &amp; Doa Restu</h3>
+                        <button type="button" id="btn-admin-login" class="admin-lock-btn" title="Mode Admin (Hapus Ucapan)">🔒</button>
+                    </div>
+                    <button id="btn-close-guestbook" class="btn-close-dialogue">✕</button>
+                </div>
+
+                <form id="guestbook-form">
+                    <div class="form-group">
+                        <label for="gb-name">Nama Tamu</label>
+                        <input type="text" id="gb-name" class="form-control" placeholder="Tuliskan nama Anda...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Konfirmasi Kehadiran Akad</label>
+                        <div class="radio-pills">
+                            <label class="radio-pill-item">
+                                <input type="radio" name="gb-status" value="Hadir" checked>
+                                <span>InsyaAllah Hadir</span>
+                            </label>
+                            <label class="radio-pill-item">
+                                <input type="radio" name="gb-status" value="Berhalangan">
+                                <span>Berhalangan</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gb-msg">Untaian Doa &amp; Ucapan Selamat</label>
+                        <textarea id="gb-msg" class="form-control" rows="3" placeholder="Tuliskan doa restu untuk Arief &amp; Wardani..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit-form">
+                        Kirim Doa Restu 💌
+                    </button>
+                </form>
+
+                <div class="wishes-list" id="wishes-container">
+                    <!-- Wishes rendered dynamically -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="audio.js?v=30"></script>
+    <script src="game.js?v=30"></script>
+</body>
+</html>
