@@ -1082,6 +1082,7 @@
         if (modal) {
             modal.classList.add('active');
             renderWishesList();
+            fetchWishesFromSheet(); // Tarik ucapan terbaru dari Google Sheets online
         }
     }
 
@@ -1093,10 +1094,11 @@
     // ===================================================
     // GUESTBOOK & RSVP WITH ONLINE GOOGLE SHEETS / CLOUD & ADMIN PIN
     // ===================================================
-    // URL Google Apps Script Web App (Opsional - jika diisi data otomatis masuk ke Google Sheets)
-    const GOOGLE_SHEETS_URL = window.GS_ENDPOINT || '';
+    // URL Google Apps Script Web App Aktif (Realtime Online Google Sheets)
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyhdMs0xYc1TUW9bKIyoTMuZ-EOwiTPG6RVG-HMAuOaEt3L1Xe2ARc3Y3alRS52sMFRxQ/exec';
 
     let isAdminLoggedIn = localStorage.getItem('arief_wardani_admin') === 'true';
+    let isFetchingWishes = false;
 
     const defaultWishes = [
         { id: '1', name: 'Keluarga Besar Bpk. Ahmad', status: 'Hadir', text: 'Barakallahu laka wa baraka alaika wa jamaa bainakuma fii khoir. Selamat menempuh hidup baru Arief & Wardani!' },
@@ -1109,11 +1111,35 @@
         if (stored) {
             try { 
                 const parsed = JSON.parse(stored);
-                // ensure every wish has an id
-                return parsed.map((w, idx) => ({ ...w, id: w.id || String(Date.now() - idx) }));
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    return parsed.map((w, idx) => ({ ...w, id: w.id || String(Date.now() - idx) }));
+                }
             } catch(e) {}
         }
         return defaultWishes;
+    }
+
+    // Ambil data ucapan terbaru langsung dari Google Sheets
+    function fetchWishesFromSheet() {
+        if (!GOOGLE_SHEETS_URL || isFetchingWishes) return;
+        isFetchingWishes = true;
+
+        fetch(GOOGLE_SHEETS_URL)
+            .then(res => res.json())
+            .then(res => {
+                if (res && res.status === 'success' && Array.isArray(res.data)) {
+                    if (res.data.length > 0) {
+                        localStorage.setItem('arief_wardani_wishes', JSON.stringify(res.data));
+                        renderWishesList();
+                    }
+                }
+            })
+            .catch(err => {
+                console.log('Gagal menyinkronkan Google Sheets (offline fallback):', err);
+            })
+            .finally(() => {
+                isFetchingWishes = false;
+            });
     }
 
     function deleteWish(id) {
@@ -1127,13 +1153,13 @@
         wishes = wishes.filter(w => String(w.id) !== String(id));
         localStorage.setItem('arief_wardani_wishes', JSON.stringify(wishes));
 
-        // If Google Sheets endpoint is configured, inform sheet as well
+        // Hapus dari Google Sheets secara langsung
         if (GOOGLE_SHEETS_URL) {
             fetch(GOOGLE_SHEETS_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'delete', id: id })
+                body: JSON.stringify({ action: 'delete', id: String(id) })
             }).catch(console.error);
         }
 
