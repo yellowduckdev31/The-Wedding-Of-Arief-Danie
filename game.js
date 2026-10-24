@@ -286,7 +286,7 @@
                 title: 'Arief Putra Utama & Wardani',
                 role: 'Kedua Mempelai Akad Nikah',
                 avatar: 'assets/avatar_male.png',
-                text: 'Bismillahirrahmannirrahiim. Assalamu’alaikum Warahmatullahi Wabarakatuh.\n\nDengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menyaksikan dan memberikan doa restu pada prosesi Akad Nikah kami:\n\n🤵 Mempelai Pria:\n**Arief Putra Utama**\nPutra Pertama dari Bpk. Ahmad Kawit & (Alm) Ibu Agustinawati\n\n👰 Mempelai Wanita:\n**Wardani**\nPutri Pertama dari Bpk. Gunadi & Ibu Biah\n\nAcara ini adalah prosesi Akad Nikah saja tanpa resepsi. Kehadiran dan untaian doa restu dari Bapak/Ibu/Saudara/i merupakan anugerah terindah dan penyempurna kebahagiaan kami.',
+                text: 'Bismillahirrahmannirrahiim. Assalamu’alaikum Warahmatullahi Wabarakatuh.\n\nDengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menyaksikan dan memberikan doa restu pada prosesi Akad Nikah kami:\n\n🤵 Mempelai Pria:\n**Arief Putra Utama**\nPutra Pertama dari Bpk. Ahmad Kawit & (Alm) Ibu Agustinawati\n\n👰 Mempelai Wanita:\n**Wardani**\nPutri Pertama dari Bpk. Gunadi & Ibu Biah\n\nAcara ini adalah prosesi Akad Nikah, Kehadiran dan untaian Doa restu dari Bapak/Ibu/Saudara/I merupakan anugerah terindah dan penyempurna kebahagiaan kami.',
                 actions: [
                     { label: 'Kirim Doa Restu / Ucapan 💌', type: 'open_guestbook' },
                     { label: 'Lihat Lokasi di Google Maps 📍', type: 'open_maps' },
@@ -1064,7 +1064,7 @@
             title: 'Akad Nikah Arief & Wardani',
             role: 'Informasi Resmi & Jadwal Acara',
             avatar: 'assets/prop_signboard.png',
-            text: `🗓️ **HARI & TANGGAL**:\nKamis, 26 November 2026\n\n⏰ **WAKTU AKAD NIKAH**:\nPukul 08.00 - 10.00 WIB\n\n📌 **CATATAN ACARA**:\nAcara ini merupakan prosesi Akad Nikah saja (tanpa resepsi).\n\n📍 **LOKASI ACARA**:\nKediaman Mempelai Wanita\nJl. Raya Sambikerep No.55, Sambikerep, Kec. Sambikerep, Surabaya, Jawa Timur 60217`,
+            text: `🗓️ **HARI & TANGGAL**:\nKamis, 26 November 2026\n\n⏰ **WAKTU AKAD NIKAH**:\nPukul 09:00 Pagi (Akad sampai selesai)\n\n📌 **CATATAN ACARA**:\nAcara ini akad saja sampai selesai.\n\n📍 **LOKASI ACARA**:\nKediaman Mempelai Wanita\nJl. Raya Sambikerep No.55, Sambikerep, Kec. Sambikerep, Surabaya, Jawa Timur 60217`,
             actions: [
                 { label: 'Buka di Google Maps 📍', type: 'open_maps', primary: true },
                 { label: 'Salin Alamat 🏡', type: 'copy_address' },
